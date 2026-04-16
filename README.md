@@ -1,133 +1,152 @@
 # 🤖 AI Resume Screening System with LangSmith Tracing
 
-**Innomatics Technology Hub — Data Science Internship, February 2026**
+An end-to-end AI pipeline that evaluates candidate resumes against job descriptions using **LangChain (LCEL)**, **OpenAI GPT-4o-mini**, and **LangSmith** for observability and debugging.
 
 ---
 
-## Overview
+## 🚀 Key Features
 
-An end-to-end AI pipeline that evaluates candidate resumes against a job description using **LangChain** (LCEL), **OpenAI GPT-4o-mini**, and **LangSmith** for tracing and debugging.
+* 🔍 Automated **skill extraction** from resumes
+* 🎯 Intelligent **job-resume matching**
+* 📊 Quantitative **candidate scoring (0–100)**
+* 🧠 Human-readable **explanations for decisions**
+* 📈 Full pipeline **tracing with LangSmith**
+* ⚙️ Modular architecture using **LangChain LCEL**
 
-### Pipeline Flow
+---
+
+## 🧠 Pipeline Flow
+
 ```
 Resume → Skill Extraction → Matching → Scoring → Explanation → LangSmith Tracing
 ```
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 ai_resume_screener/
 │
-├── main.py                  # Entry point — runs the full pipeline
-├── notebook.ipynb           # Jupyter Notebook version
-├── requirements.txt         # Python dependencies
-├── .env.example             # Template for environment variables
+├── main.py
+├── notebook.ipynb
+├── requirements.txt
+├── .env.example
 │
 ├── prompts/
-│   ├── __init__.py
-│   └── templates.py         # All 4 PromptTemplates (extraction, matching, scoring, explanation)
-│
 ├── chains/
-│   ├── __init__.py
-│   └── screening_chains.py  # LCEL chains (prompt | llm | parser)
-│
 ├── data/
-│   ├── __init__.py
-│   └── resumes.py           # 3 sample resumes + job description
-│
 └── utils/
-    ├── __init__.py
-    └── display.py           # Output formatting helpers
 ```
 
 ---
 
-## Setup
+## ⚙️ Setup
 
-### 1. Clone / download the project
+### 1️⃣ Clone the repository
 
 ```bash
-git clone https://github.com/<your-username>/ai-resume-screener.git
-cd ai-resume-screener
+git clone https://github.com/kiran2154/ai-resume-screening-system.git
+cd ai-resume-screening-system
 ```
 
-### 2. Install dependencies
+### 2️⃣ Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Configure API keys
+### 3️⃣ Configure API keys
 
 ```bash
 cp .env.example .env
 ```
 
-Edit `.env` and add your keys:
+Edit `.env`:
 
 ```env
-OPENAI_API_KEY=sk-...
-LANGCHAIN_API_KEY=ls__...
+OPENAI_API_KEY=your_key_here
+LANGCHAIN_API_KEY=your_key_here
 LANGCHAIN_TRACING_V2=true
 LANGCHAIN_PROJECT=ai-resume-screener
 ```
 
-Get your **LangSmith API key** from: https://smith.langchain.com → Settings → API Keys
+---
 
-### 4. Run the pipeline
+### 4️⃣ Run the project
 
 ```bash
 python main.py
 ```
 
-Or open `notebook.ipynb` in Jupyter / VS Code.
+---
+
+## 📊 Pipeline Details
+
+| Step | Chain            | Description                             |
+| ---- | ---------------- | --------------------------------------- |
+| 1    | Skill Extraction | Extracts skills, tools, experience      |
+| 2    | Matching         | Compares candidate with job description |
+| 3    | Scoring          | Generates fit score (0–100)             |
+| 4    | Explanation      | Provides reasoning for score            |
 
 ---
 
-## Pipeline Details
+## 📈 LangSmith Observability
 
-| Step | Chain | Input | Output |
-|------|-------|-------|--------|
-| 1 | `skill_extraction_chain` | Resume text | Skills, experience, tools |
-| 2 | `matching_chain` | Profile + JD | Matched / missing skills |
-| 3 | `scoring_chain` | Match analysis | Numeric score (0–100) |
-| 4 | `explanation_chain` | Name + score + analysis | Human-readable explanation |
+* Full execution trace for each candidate
+* Token usage & latency tracking
+* Step-by-step debugging visibility
 
----
-
-## LangSmith Tracing
-
-LangSmith traces are enabled automatically when `LANGCHAIN_TRACING_V2=true`.
-
-Each candidate run produces a **separate traced run** in LangSmith showing:
-- All 4 pipeline steps
-- Token usage per step
-- Latency per step
-- Inputs and outputs at each node
-
-View your traces at: **https://smith.langchain.com**
+👉 View traces: https://smith.langchain.com
 
 ---
 
-## Evaluation Criteria Coverage
+## 📸 Screenshots
 
-| Criterion | Implementation |
-|-----------|---------------|
-| Pipeline Design | 4-step LCEL pipeline in `chains/` |
-| LangChain Implementation | PromptTemplate + LCEL + `.invoke()` |
-| Scoring & Logic | Rubric-based scoring (0–100) |
-| Explainability | Step 4 explanation chain |
-| LangSmith Tracing | `@traceable` + env vars |
-| Code Quality | Modular, commented, typed |
-| Bonus | `@traceable` tags, structured output parsing |
+> Add screenshots here to showcase LangSmith traces and outputs
+
+```
+Screenshots/
+├── langsmith_trace_1.png
+├── langsmith_trace_2.png
+```
 
 ---
 
-## Bonus Features Implemented
+## 🧪 Sample Output
 
-- ✅ `@traceable` decorator with custom tags on `screen_candidate()`
-- ✅ Structured output parsing (score extracted via regex from LLM output)
-- ✅ Anti-hallucination rules in every prompt ("Do NOT assume skills not in resume")
-- ✅ Leaderboard summary printed after all runs
+* Candidate Score: **78/100**
+* Strengths: Python, ML, SQL
+* Gaps: Deep Learning, MLOps
+
+---
+
+## 🏗️ Tech Stack
+
+* **Python**
+* **LangChain (LCEL)**
+* **OpenAI API**
+* **LangSmith**
+
+---
+
+## 🔒 Security Note
+
+* API keys are stored in `.env` (not committed)
+* `.gitignore` ensures sensitive data is excluded
+
+---
+
+## 🎯 Future Improvements
+
+* Streamlit / Web UI
+* Resume PDF parsing
+* Candidate ranking dashboard
+* Export results to CSV
+
+---
+
+## ⭐ If you found this useful
+
+Give the repo a star ⭐
